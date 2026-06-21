@@ -27,8 +27,8 @@ export LC_ALL="C"
 export ALLOW_MISSING_DEPENDENCIES=true
 
 # Partitions
-export FOX_RECOVERY_SYSTEM_PARTITION="/dev/block/mapper/system"
-export FOX_RECOVERY_VENDOR_PARTITION="/dev/block/mapper/vendor"
+export FOX_RECOVERY_HAS_DYNAMIC_PARTITIONS=1
+export FOX_RECOVERY_A_B_DEVICE=1
 
 export FOX_SETTINGS_ROOT_DIRECTORY="/cache"
 export FOX_MISCELLANEOUS_ROOT_DIRECTORY="/cache"
