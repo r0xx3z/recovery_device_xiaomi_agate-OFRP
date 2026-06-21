@@ -11,6 +11,9 @@ PRODUCT_RELEASE_NAME := agate
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
+# Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
+
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/twrp/config/common.mk)
 
