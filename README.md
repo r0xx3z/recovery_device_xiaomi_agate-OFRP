@@ -1,4 +1,4 @@
-![cap_sprout](https://wiki.orangefox.tech/banner.svg)
+![cap_sprout](https://wiki.orangefox.tech/root/banner.svg)
 ---
 
 # OFRP for Xiaomi 11T (_agate_)
@@ -22,7 +22,7 @@
 ---
 ## Sources
 - [Kernel Tree](https://github.com/xiaomi-mt6893-dev/kernel_xiaomi_mt6893)
-- [Device Tree](https://github.com/AYIKxD/recovery_device_xiaomi_ares)
+- [Device Tree](https://github.com/Mdlove59/recovery_device_xiaomi_agate/tree/12.1)
 
 ---
 

@@ -1,7 +1,7 @@
-kheaders.ko
 fts_touch_spi.ko
 xiaomi_touch.ko
-bt_drv.ko
+bt_drv_6893.ko
+connfem.ko
 conninfra.ko
 gps_drv.ko
 wmt_chrdev_wifi.ko

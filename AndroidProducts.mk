@@ -6,3 +6,6 @@
 
 PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/twrp_agate.mk
+
+COMMON_LUNCH_CHOICES := \
+    fox_agate-eng
