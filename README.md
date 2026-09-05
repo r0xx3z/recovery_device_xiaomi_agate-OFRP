@@ -1,11 +1,9 @@
-![cap_sprout](https://wiki.orangefox.tech/root/banner.svg)
----
+# OFRP Xiaomi 11T (_agate_)
 
-# OFRP for Xiaomi 11T (_agate_)
-
-- 21081111RG
+![OFRP](https://wiki.orangefox.tech/api/wiki/banner.svg)
 
 ---
+
 # Device specifications 
 
 | Device                  | Xiaomi 11T                                  |
