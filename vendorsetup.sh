@@ -43,7 +43,7 @@ export FOX_DELETE_AROMAFM=1
 
 # Maintainer & Build Info
 export FOX_BUILD_TYPE="Testing"
-export FOX_MAINTAINER_PATCH_VERSION="1"
+export FOX_MAINTAINER_PATCH_VERSION="2"
 export OF_MAINTAINER="MKR"
 	
 else
