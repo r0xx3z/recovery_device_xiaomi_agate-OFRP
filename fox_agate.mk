@@ -3,19 +3,27 @@
 # Copyright (C) 2023 The OrangeFox Recovery Project
 #
 
-# OrangeFox settings
+# OrangeFox-specific settings
 OF_USE_GREEN_LED := 0
-OF_ENABLE_USB_STORAGE := 1
 OF_IGNORE_LOGICAL_MOUNT_ERRORS := 1
-
-OF_BIND_MOUNT_SDCARD_ON_FORMAT := 1
+OF_DONT_PATCH_ENCRYPTED_DEVICE := 1
 OF_NO_TREBLE_COMPATIBILITY_CHECK := 1
+OF_NO_MIUI_PATCH_WARNING := 1
+OF_ENABLE_USB_STORAGE := 1
+OF_BIND_MOUNT_SDCARD_ON_FORMAT := 1
 
 OF_ENABLE_LPTOOLS := 1
 OF_QUICK_BACKUP_LIST := /boot;/data;/dtbo;
 
 # avb 2.0
 OF_PATCH_AVB20 := 1
+
+# Decryption
+OF_FBE_METADATA_MOUNT_IGNORE := 1
+
+# Magisk & Boot Patching
+OF_USE_MAGISKBOOT := 1
+OF_USE_MAGISKBOOT_FOR_ALL_PATCHES := 1
 
 # OrangeFox GUI settings
 OF_FLASHLIGHT_ENABLE := 1
@@ -33,6 +41,9 @@ OF_FIX_OTA_UPDATE_MANUAL_FLASH_ERROR := 1
 
 # f2fs compression
 OF_ENABLE_FS_COMPRESSION := 1
+
+# FRP
+OF_ENABLE_FRP_ADDON := 1
 
 # Maximun permissible splash image size (in kilobytes); do "NOT" increase
 OF_SPLASH_MAX_SIZE := "130"
