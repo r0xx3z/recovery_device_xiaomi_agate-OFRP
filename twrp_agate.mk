@@ -14,6 +14,9 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 # Inherit from agate device
 $(call inherit-product, device/xiaomi/agate/device.mk)
 
+# Inherit from fox_agate configs
+$(call inherit-product, device/xiaomi/agate/fox_agate.mk)
+
 PRODUCT_DEVICE := agate
 PRODUCT_NAME := twrp_agate
 PRODUCT_BRAND := Xiaomi

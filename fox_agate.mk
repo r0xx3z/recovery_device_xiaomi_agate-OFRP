@@ -3,6 +3,8 @@
 # Copyright (C) 2023 The OrangeFox Recovery Project
 #
 
+$(warning FOX AGATE MK LOADED)
+ 
 # OrangeFox-specific settings
 OF_USE_GREEN_LED := 0
 OF_IGNORE_LOGICAL_MOUNT_ERRORS := 1
