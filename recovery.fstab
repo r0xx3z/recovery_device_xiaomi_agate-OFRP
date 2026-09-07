@@ -44,7 +44,7 @@ auto                            auto        /devices/platform/externdevice*     
 auto                            vfat        /devices/platform/usb_xhci*                            flags=display=auto
 auto                            vfat        /devices/platform/soc/11201000.usb0/11200000.xhci*     flags=display=auto
 auto                            vfat        /devices/platform/usb0/11200000.xhci*                  flags=display=auto
-/persistent                     emmc        /dev/block/by-name/frp                                 flags=display=persistent
+/persistent                     emmc        /dev/block/by-name/frp                                 flags=display=frp
 /nvram                          emmc        /dev/block/by-name/nvram                               flags=display=nvram
 /proinfo                        emmc        /dev/block/by-name/proinfo                             flags=display=proinfo
 /bootloader                     emmc        /dev/block/by-name/lk                                  flags=display=bootloader
