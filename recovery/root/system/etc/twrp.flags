@@ -25,7 +25,7 @@
 /nvdata			ext4		/dev/block/platform/bootdevice/by-name/nvdata		flags=display="NVDATA"
 /nvcfg			ext4		/dev/block/platform/bootdevice/by-name/nvcfg		flags=display="NVCFG"
 
-/persistent		emmc		/dev/block/platform/bootdevice/by-name/frp		flags=display="FRP"
+/persistent		emmc		/dev/block/platform/bootdevice/by-name/frp		flags=display="FRP";wipeingui
 /nvram			emmc		/dev/block/platform/bootdevice/by-name/nvram		flags=display="NVRAM"
 /proinfo		emmc		/dev/block/platform/bootdevice/by-name/proinfo		flags=display="PROINFO"
 /bootloader		emmc		/dev/block/platform/bootdevice/by-name/lk		flags=display="BOOTLOADER"
