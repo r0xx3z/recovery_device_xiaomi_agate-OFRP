@@ -7,6 +7,9 @@ name: OrangeFox - Build
 # And all Contributors in every repositories I used
 
 on:
+  push:
+    branches:
+      - 'android-12.1'
   workflow_dispatch:
     inputs:
       MANIFEST_BRANCH:
@@ -40,8 +43,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      MANIFEST_BRANCH: ${{ inputs.MANIFEST_BRANCH || '12.1' }}
+      DEVICE_TREE: ${{ inputs.DEVICE_TREE || 'https://github.com/r0xx3z/recovery_device_xiaomi_agate-OFRP' }}
+      DEVICE_TREE_BRANCH: ${{ inputs.DEVICE_TREE_BRANCH || 'android-12.1' }}
+      DEVICE_PATH: ${{ inputs.DEVICE_PATH || 'device/xiaomi/agate' }}
+      DEVICE_NAME: ${{ inputs.DEVICE_NAME || 'agate' }}
+      BUILD_TARGET: ${{ inputs.BUILD_TARGET || 'boot' }}
     permissions:
-      contents: write
+      contents: read
     steps:
     - name: 🔄 Checkout
       uses: actions/checkout@v4
@@ -62,7 +71,7 @@ jobs:
         sudo bash setup/android_build_env.sh
       
     - name: 🔧 Set-up Manifest
-      if: inputs.MANIFEST_BRANCH == '12.1'
+      if: env.MANIFEST_BRANCH == '12.1'
       run: |
         mkdir -p ${GITHUB_WORKSPACE}/OrangeFox
         cd ${GITHUB_WORKSPACE}/OrangeFox
@@ -70,47 +79,40 @@ jobs:
         git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
         git clone https://gitlab.com/OrangeFox/sync.git -b master
         cd sync
-        ./orangefox_sync.sh --branch ${{ inputs.MANIFEST_BRANCH }} --path ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
+        ./orangefox_sync.sh --branch ${{ env.MANIFEST_BRANCH }} --path ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ env.MANIFEST_BRANCH }}
 
     - name: 📂 Clone Device Tree
       run: |
-        cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
-        git clone ${{ inputs.DEVICE_TREE }} -b ${{ inputs.DEVICE_TREE_BRANCH }} ./${{ inputs.DEVICE_PATH }}
-        cd ${{ inputs.DEVICE_PATH }}
+        cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ env.MANIFEST_BRANCH }}
+        git clone ${{ env.DEVICE_TREE }} -b ${{ env.DEVICE_TREE_BRANCH }} ./${{ env.DEVICE_PATH }}
+        cd ${{ env.DEVICE_PATH }}
         echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
     - name: 🛠️ Building OrangeFox
       run: |
-        cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
+        cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ env.MANIFEST_BRANCH }}
         set +e
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         set -e
-        lunch twrp_${{ inputs.DEVICE_NAME }}-eng && make clean && mka adbd ${{ inputs.BUILD_TARGET }}image
+        lunch twrp_${{ env.DEVICE_NAME }}-eng && make clean && mka adbd ${{ env.BUILD_TARGET }}image
 
     - name: ⏰ Set Release Properties
       run: |
         echo "BUILD_DATE=$(TZ=Asia/Manila date +%Y%m%d)" >> $GITHUB_ENV
-        cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
+        cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ env.MANIFEST_BRANCH }}
 
-        DEVICE_TREE_URL="${{ inputs.DEVICE_TREE }}"
+        DEVICE_TREE_URL="${{ env.DEVICE_TREE }}"
         if [[ "${DEVICE_TREE_URL}" == *.git ]]; then
           DEVICE_TREE_URL="${DEVICE_TREE_URL%.git}"
         fi
         echo "DEVICE_TREE_URL=${DEVICE_TREE_URL}" >> $GITHUB_ENV
 
-    - name: 📤 Upload to Release
-      uses: softprops/action-gh-release@v2
+    - name: 📤 Upload
+      uses: actions/upload-artifact@v4
       with:
-        files: |
-          OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}/out/target/product/${{ inputs.DEVICE_NAME }}/OrangeFox*.img
-          OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}/out/target/product/${{ inputs.DEVICE_NAME }}/OrangeFox*.zip
-        name: OrangeFox Recovery for ${{ inputs.DEVICE_NAME }} // ${{ env.BUILD_DATE }}
-        tag_name: ${{ github.run_id }}
-        body: |
-          ## OrangeFox Recovery Build - Unofficial
-          Build: fox_${{ inputs.MANIFEST_BRANCH }}
-          Device: [Device Tree/Branch](${{ env.DEVICE_TREE_URL }}/tree/${{ inputs.DEVICE_TREE_BRANCH }})
-          Commit: Most recent [commit](${{ env.DEVICE_TREE_URL }}/commit/${{ env.COMMIT_ID }}) during building.
-
-          
+        name: OrangeFox-${{ env.DEVICE_NAME }}-${{ env.BUILD_DATE }}-${{ github.run_id }}
+        path: |
+          OrangeFox/fox_${{ env.MANIFEST_BRANCH }}/out/target/product/${{ env.DEVICE_NAME }}/OrangeFox*.img
+          OrangeFox/fox_${{ env.MANIFEST_BRANCH }}/out/target/product/${{ env.DEVICE_NAME }}/OrangeFox*.zip
+        retention-days: 14
