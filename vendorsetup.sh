@@ -20,6 +20,7 @@ fi
 if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 
 # Build
+export FOX_TARGET_DEVICES="agate,amber"
 export FOX_USE_SPECIFIC_MAGISK_ZIP=~/Magisk/Magisk-v30.7.zip
 export TW_DEFAULT_LANGUAGE="en"
 export LC_ALL="C"
@@ -50,7 +51,7 @@ export FOX_ENABLE_APP_MANAGER=1
 
 # Maintainer & Build Info
 export FOX_BUILD_TYPE="Testing"
-export FOX_MAINTAINER_PATCH_VERSION="7"
+export FOX_MAINTAINER_PATCH_VERSION="8"
 export OF_MAINTAINER="MKR"
 	
 else
