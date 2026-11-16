@@ -85,11 +85,6 @@ jobs:
         fi
         echo "DEVICE_TREE_URL=${DEVICE_TREE_URL}" >> $GITHUB_ENV
         
-    - name: 🔍 Inspect built fstab
-      run: |
-        cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ env.MANIFEST_BRANCH }}/out/target/product/${{ env.DEVICE_NAME }}
-        head -5 recovery/root/system/etc/recovery.fstab
-        
     - name: 📤 Upload
       uses: actions/upload-artifact@v4
       with:
