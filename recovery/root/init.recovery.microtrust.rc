@@ -62,12 +62,12 @@ on fs
     chmod 0660 /dev/rpmb0
     chown system system /dev/rpmb0
 
-    # The TEE keeps its RPMB bookkeeping under /mnt/vendor/persist/rpmb
+    # The TEE keeps its RPMB bookkeeping
     wait /dev/block/by-name/persist 5
-    mkdir /mnt/vendor 0755 system system
+    mkdir /persist 0771 system system
+    mount ext4 /dev/block/by-name/persist /persist nosuid nodev noatime
     mkdir /mnt/vendor/persist 0771 system system
-    mount ext4 /dev/block/by-name/persist /mnt/vendor/persist nosuid nodev noatime
-    mkdir /mnt/vendor/persist/rpmb 0771 system system
+    mount none /persist /mnt/vendor/persist bind
 
     # Scratch dirs the daemon expects under /data (real /data is still locked here)
     mkdir /data/vendor 0771 system system
