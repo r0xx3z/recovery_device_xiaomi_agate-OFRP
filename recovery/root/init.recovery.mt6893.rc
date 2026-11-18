@@ -35,3 +35,8 @@ on post-fs
     symlink /dev/block/mapper/pl_b /dev/block/by-name/preloader_raw_b
     symlink /dev/block/mapper/pl_a /dev/block/platform/bootdevice/by-name/preloader_raw_a
     symlink /dev/block/mapper/pl_b /dev/block/platform/bootdevice/by-name/preloader_raw_b
+
+    # OrangeFox writes max_brightness into brightness: cap it so the MT6360 does not trip
+    mkdir /tmp/flashlight 0755 root root
+    write /tmp/flashlight/max_brightness 40
+    symlink /sys/class/leds/torch-light0/brightness /tmp/flashlight/brightness
