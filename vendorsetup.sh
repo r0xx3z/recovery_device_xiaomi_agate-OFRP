@@ -51,7 +51,7 @@ export FOX_ENABLE_APP_MANAGER=1
 
 # Maintainer & Build Info
 export FOX_BUILD_TYPE="Beta"
-export FOX_MAINTAINER_PATCH_VERSION="2"
+export FOX_MAINTAINER_PATCH_VERSION="3"
 export OF_MAINTAINER="MKR"
 	
 else
